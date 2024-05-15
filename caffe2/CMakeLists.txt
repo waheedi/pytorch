@@ -478,6 +478,7 @@ else()
     # TODO: Delete this when https://github.com/pytorch/pytorch/issues/35026 is fixed
     set_source_files_properties(../torch/csrc/autograd/record_function_ops.cpp PROPERTIES COMPILE_FLAGS -Wno-deprecated-declarations)
   endif()
+  include_directories(${TORCH_ROOT}/third_party/nlohmann/single_include)
 endif()
 list(APPEND TORCH_SRCS ${LIBTORCH_CMAKE_SRCS})
 
@@ -1261,6 +1262,7 @@ if(BUILD_TEST)
     )
   else()
     add_subdirectory(${TORCH_ROOT}/test/cpp/jit ${CMAKE_BINARY_DIR}/test_jit)
+    add_subdirectory(${TORCH_ROOT}/test/inductor ${CMAKE_BINARY_DIR}/test_inductor)
     add_subdirectory(
       ${TORCH_ROOT}/test/cpp/tensorexpr
       ${CMAKE_BINARY_DIR}/test_tensorexpr
