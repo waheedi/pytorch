@@ -2024,7 +2024,7 @@ class CppWrapperCpu(WrapperCodeGen):
             if isinstance(output_args, str):
                 output_args = [output_args]
 
-        if config.is_fbcode():
+        if config.is_fbcode() or V.graph.aot_mode or not config.abi_compatible:
             assert op_overload is not None
             assert raw_args is not None
             assert outputs is not None
