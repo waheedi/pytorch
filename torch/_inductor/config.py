@@ -733,6 +733,8 @@ class aot_inductor:
     # rather than embedded into the data section. Needed to support 1B+ parameter models
     force_mmap_weights: bool = False
 
+    target_platform: str = os.environ.get("AOT_INDUCTOR_TARGET_PLATFORM", "")
+
 
 class cuda:
     # CUDA arch to use for CUDA template kernel compilation.

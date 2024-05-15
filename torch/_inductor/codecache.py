@@ -1961,6 +1961,14 @@ class AotCodeCompiler:
             return consts_o
 
         def _compile_consts_darwin(consts: bytes) -> str:
+            if config.aot_inductor.target_platform == "linux":
+                _, _linux_consts_path = write(
+                    consts,
+                    "bin",
+                    specified_dir=specified_output_path,
+                )
+                print("_linux_consts_path:", _linux_consts_path)
+
             is_large_consts = len(consts) > 1024
             consts_asm = "\t.section\t__DATA,__data\n"
             consts_asm += "\t.globl\t__binary_constants_bin_start\n"
