@@ -39,7 +39,10 @@ if(NOT BUILD_LIBTORCHLESS)
 
   # caffe2_hip adds a bunch of dependencies like rocsparse, but c10/hip is supposed to be
   # minimal.  I'm not sure if we need hip_hcc or not; for now leave it out
-
+# caffe2_hip adds a bunch of dependencies like rocsparse, but c10/hip is supposed to be
+# minimal.  I'm not sure if we need hip_hcc or not; for now leave it out
+set_target_properties(c10_hip PROPERTIES CXX_STANDARD 17 CXX_EXTENSIONS OFF)
+# If building shared library, set dllimport/dllexport proper.
   # If building shared library, set dllimport/dllexport proper.
   target_compile_options(c10_hip PRIVATE "-DC10_HIP_BUILD_MAIN_LIB")
   # Enable hidden visibility if compiler supports it.

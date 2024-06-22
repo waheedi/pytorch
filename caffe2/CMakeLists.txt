@@ -1673,6 +1673,8 @@ if(USE_ROCM)
   # Since PyTorch files contain HIP headers, these flags are required for the necessary definitions to be added.
   target_compile_options(torch_hip PUBLIC ${HIP_CXX_FLAGS})  # experiment
 
+  set_target_properties(torch_hip PROPERTIES CXX_STANDARD 17 CXX_EXTENSIONS OFF)
+
   target_link_libraries(torch_hip PUBLIC c10_hip)
 
   if(NOT INTERN_BUILD_MOBILE)
@@ -1869,6 +1871,7 @@ if(BUILD_TEST)
       target_include_directories(${test_name} PRIVATE $<INSTALL_INTERFACE:include>)
       target_include_directories(${test_name} PRIVATE ${Caffe2_CPU_INCLUDE} ${Caffe2_HIP_INCLUDE})
       target_compile_options(${test_name} PRIVATE ${HIP_CXX_FLAGS})
+      set_target_properties(${test_name} PROPERTIES CXX_STANDARD 17 CXX_EXTENSIONS OFF)
       add_test(NAME ${test_name} COMMAND $<TARGET_FILE:${test_name}>)
       if(INSTALL_TEST)
         install(TARGETS ${test_name} DESTINATION test)
